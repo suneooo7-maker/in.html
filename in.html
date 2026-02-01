@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic Valentine's Day - Gowri</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Lobster&family=Roboto+Slab:wght@400;700&family=Cinzel+Decorative&family=Dancing+Script&display=swap" rel="stylesheet">
+
+<style>
+/* --- Reset & base --- */
+* { margin:0; padding:0; box-sizing:border-box; }
+body, html { width:100%; height:100%; overflow-x:hidden; font-family:'Roboto Slab', serif; scroll-behavior: smooth; background:#ffccd5; color:#fff; }
+button { cursor:pointer; }
+
+/* --- Floating Hearts, Rose Petals & Sparkles --- */
+.particle {
+  position: absolute;
+  width: 15px; height: 15px;
+  border-radius:50%;
+  background:#ff1744;
+  animation: float 10s linear infinite;
+  opacity:0.9;
+  z-index:0;
+}
+.rose {
+  width:20px; height:20px;
+  background: url('https://i.postimg.cc/NFnw5yCW/rose.png') no-repeat center/cover;
+  position:absolute;
+  animation: float 12s linear infinite;
+}
+.sparkle {
+  width:8px; height:8px; background:#fff;
+  position:absolute; border-radius:50%;
+  animation: sparkleMove 8s linear infinite;
+  opacity:0.8;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  50% { transform: translateY(-300px) rotate(180deg); opacity:0.6; }
+  100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
+}
+
+@keyframes sparkleMove {
+  0% { transform: translateY(0) scale(0.5); opacity:0; }
+  50% { opacity:1; }
+  100% { transform: translateY(-500px) scale(1); opacity:0; }
+}
+
+/* --- Slides Container --- */
+.slides { width:100%; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden; padding:50px 20px; }
+
+/* --- Slide Styles --- */
+.slide { display:none; flex-direction:column; align-items:center; justify-content:center; position:relative; min-height:100vh; padding:20px; transition: all 1s ease; }
+.slide.active { display:flex; animation: slideFade 2s ease forwards; }
+@keyframes slideFade { 0%{opacity:0;} 100%{opacity:1;} }
+
+/* --- Slide Content --- */
+.slide-content { max-width:900px; margin:auto; position:relative; }
+h1 { font-family:'Great Vibes', cursive; font-size:4em; margin-bottom:20px; text-shadow:2px 2px 15px rgba(0,0,0,0.3); animation:slideUp 1.5s ease forwards; opacity:0; }
+h2 { font-family:'Lobster', cursive; font-size:2.5em; margin-bottom:20px; color:#ffebee; animation:slideUp 2s ease forwards; opacity:0; }
+h3 { font-family:'Dancing Script', cursive; font-size:2em; margin-bottom:15px; color:#ffe0e0; animation:slideUp 2.5s ease forwards; opacity:0; }
+p { font-size:1.5em; line-height:1.8; margin-bottom:30px; animation:slideUp 3s ease forwards; opacity:0; }
+.highlight { font-family:'Pacifico', cursive; color:#ff1744; font-size:1.8em; animation:slideUp 3.5s ease forwards; opacity:0; }
+footer { margin-top:50px; font-size:1em; color:rgba(255,255,255,0.8); }
+
+/* --- Buttons --- */
+.next-btn { background: #ff1744; color:#fff; border:none; padding:15px 30px; font-size:1.2em; border-radius:50px; transition:0.3s; margin-top:20px; }
+.next-btn:hover { background:#f50057; transform:scale(1.1); }
+
+/* --- Typewriter effect --- */
+.typewriter { overflow:hidden; border-right: .15em solid #fff; white-space: nowrap; animation: typing 3s steps(50, end), blink-caret .75s step-end infinite; font-family:'Cinzel Decorative', serif; }
+@keyframes typing { from { width:0; } to { width:100%; } }
+@keyframes blink-caret { 50% { border-color: transparent; } }
+
+/* --- Slide fade-in elements --- */
+@keyframes slideUp { 0% { transform:translateY(50px); opacity:0; } 100% { transform:translateY(0); opacity:1; } }
+
+/* --- Backgrounds per slide --- */
+.slide-1 { background: linear-gradient(120deg, #ff9a9e, #fad0c4); }
+.slide-2 { background: linear-gradient(120deg, #a18cd1, #fbc2eb); }
+.slide-3 { background: linear-gradient(120deg, #fbc2eb, #a6c1ee); }
+.slide-4 { background: linear-gradient(120deg, #f9d423, #ff4e50); }
+.slide-5 { background: linear-gradient(120deg, #43e97b, #38f9d7); }
+.slide-6 { background: linear-gradient(120deg, #30cfd0, #330867); }
+.slide-7 { background: linear-gradient(120deg, #ff9a9e, #fecfef); }
+.slide-8 { background: linear-gradient(120deg, #fddb92, #d1fdff); }
+.slide-9 { background: linear-gradient(120deg, #ffecd2, #fcb69f); }
+.slide-10 { background: linear-gradient(120deg, #ff7eb3, #ff758c); }
+.slide-11 { background: linear-gradient(120deg, #c3cfe2, #c3cfe2); }
+.slide-12 { background: linear-gradient(120deg, #e0c3fc, #8ec5fc); }
+.slide-13 { background: linear-gradient(120deg, #f093fb, #f5576c); }
+.slide-14 { background: linear-gradient(120deg, #43cea2, #185a9d); }
+.slide-15 { background: linear-gradient(120deg, #fa709a, #fee140); }
+
+</style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="bg-music" autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Floating Particles Container -->
+<div id="particles"></div>
+
+<!-- Slides -->
+<div class="slides">
+
+  <!-- Slide 1 -->
+  <div class="slide slide-1 active">
+    <div class="slide-content">
+      <h1 class="typewriter">Happy Valentine's Day</h1>
+      <h2>My Better Half</h2>
+      <p class="highlight">Gowri ❤️</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide slide-2">
+    <div class="slide-content">
+      <h1>Every Moment With You</h1>
+      <p>Feels like a dream, a beautiful journey, and the best part of my life. 🌸</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide slide-3">
+    <div class="slide-content">
+      <h1>Your Smile</h1>
+      <p>Makes my heart lighter and my world brighter. 💖</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="slide slide-4">
+    <div class="slide-content">
+      <h1>Forever & Always</h1>
+      <p>Together we create memories, laughter, and endless love. 🌹</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 5 -->
+  <div class="slide slide-5">
+    <div class="slide-content">
+      <h1>To My Valentine</h1>
+      <p class="highlight">Gowri ❤️</p>
+      <p>You are my heart, my happiness, and my everything. 💘</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="slide slide-6">
+    <div class="slide-content">
+      <h1>Love is Magic</h1>
+      <p>With every heartbeat, I fall deeper for you. ✨</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 7 -->
+  <div class="slide slide-7">
+    <div class="slide-content">
+      <h1>Laughs & Tears</h1>
+      <p>We’ve shared everything — and I cherish it all. 💞</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 8 -->
+  <div class="slide slide-8">
+    <div class="slide-content">
+      <h1>Beautiful You</h1>
+      <p>Your heart, your soul, your laughter — I adore it all. 🌸</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 9 -->
+  <div class="slide slide-9">
+    <div class="slide-content">
+      <h1>My Sunshine</h1>
+      <p>Even on cloudy days, you light up my life. ☀️</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 10 -->
+  <div class="slide slide-10">
+    <div class="slide-content">
+      <h1>Every Kiss</h1>
+      <p>Every hug, every whisper — I treasure them endlessly. 💋</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 11 -->
+  <div class="slide slide-11">
+    <div class="slide-content">
+      <h1>Our Adventures</h1>
+      <p>From silly moments to unforgettable trips, I love every second with you. 🌍</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 12 -->
+  <div class="slide slide-12">
+    <div class="slide-content">
+      <h1>Always Supportive</h1>
+      <p>You lift me when I fall, inspire me when I doubt, and love me unconditionally. ❤️</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 13 -->
+  <div class="slide slide-13">
+    <div class="slide-content">
+      <h1>My Heart</h1>
+      <p>Is entirely yours — today and forever. 💘</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 14 -->
+  <div class="slide slide-14">
+    <div class="slide-content">
+      <h1>To Infinity</h1>
+      <p>There’s no limit to my love for you. 🌌</p>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+
+  <!-- Slide 15 -->
+  <div class="slide slide-15">
+    <div class="slide-content">
+      <h1>Happy Valentine's Day ❤️</h1>
+      <p class="highlight">Gowri</p>
+      <p>Forever yours, always mine. 💞</p>
+      <footer>With all my love, always — Suni 💘</footer>
+      <button class="next-btn" onclick="nextSlide()">Replay</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* --- Slide Navigation --- */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+function nextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide++;
+  if(currentSlide >= slides.length) currentSlide = 0;
+  slides[currentSlide].classList.add('active');
+}
+
+/* --- Create Floating Particles, Roses & Sparkles --- */
+const particleContainer = document.getElementById('particles');
+for(let i=0;i<30;i++){
+  const p = document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.animationDelay=Math.random()*10+'s';
+  p.style.width=5+Math.random()*20+'px';
+  p.style.height=p.style.width;
+  particleContainer.appendChild(p);
+}
+
+for(let i=0;i<15;i++){
+  const r = document.createElement('div');
+  r.className='rose';
+  r.style.left=Math.random()*100+'%';
+  r.style.animationDelay=Math.random()*12+'s';
+  particleContainer.appendChild(r);
+}
+
+for(let i=0;i<20;i++){
+  const s = document.createElement('div');
+  s.className='sparkle';
+  s.style.left=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*8+'s';
+  particleContainer.appendChild(s);
+}
+</script>
+
+</body>
+</html>
